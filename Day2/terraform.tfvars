@@ -1,0 +1,7 @@
+aws_region          = "us-west-2"
+ami_id              = "ami-075b5421f670d735c"
+instance_type       = "t2.micro"
+instance_name       = "Terraform-EC2"
+security_group_name = "ec2-security-group"
+allowed_ssh_cidr    = "0.0.0.0/0"
+allowed_http_cidr   = "0.0.0.0/0"
