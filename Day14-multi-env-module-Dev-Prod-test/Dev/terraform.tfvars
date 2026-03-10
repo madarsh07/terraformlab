@@ -1,0 +1,10 @@
+bucket_name        = "devterraformstatefileeeeeeee"
+ami_id             = "ami-075b5421f670d735c"
+az                 ="us-west-2a"
+vpc_cidr           = "10.0.0.0/16"
+vpc_name           = "project-vpc"
+public_subnet_cidr = "10.0.1.0/24"
+instance_type      = "t2.micro"
+instance_name      = "mypublicEC22"
+subnet_id          = "subnet-0d448f3522dcf1859"
+security_group_ids = ["sg-0e7daab47c94a69dd"]

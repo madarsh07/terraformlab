@@ -1,5 +1,10 @@
-variable "ami" {}
+variable "bucket_name" {}
+variable "ami_id" {}
 variable "instance_type" {}
-variable "subnet_id" {}
-variable "vpc_id" {}
+variable "az" {}
+variable "vpc_cidr" {}
+variable "vpc_name" {}
+variable "public_subnet_cidr" {}
 variable "instance_name" {}
+variable "subnet_id" {}
+variable "security_group_ids" {}
