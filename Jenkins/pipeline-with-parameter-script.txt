@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            name: 'action', 
+            choices: ['apply', 'destroy'], 
+            description: 'Select the Terraform action to perform'
+        )
+        string(
+            name: 'branch', 
+            defaultValue: 'main', 
+            description: 'Git branch to checkout'
+        )
+    }
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                // Using the branch parameter here
+                git branch: "${params.branch}", url: 'https://github.com/madarsh07/terraformlab.git'
+            }
+        }
+
+        stage('TF init') {
+            steps {
+                dir('Day1') {
+                    sh "terraform init"
+                }
+            }
+        }
+
+        stage('TF plan') {
+            steps {
+                dir('Day1') {
+                    sh "terraform plan"
+                }
+            }
+        }
+
+        stage('TF action') {
+            // Skip this stage if the user only selected 'plan' in the parameters
+            when {
+                expression { params.action != 'plan' }
+            }
+            steps {
+                dir('Day1') {
+                    // Accessing the parameter via ${params.action}
+                    sh "terraform ${params.action} -auto-approve"
+                }
+            }
+        }
+    }
+}

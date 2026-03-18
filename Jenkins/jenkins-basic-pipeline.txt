@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/madarsh07/terraformlab.git'
+            }
+        }
+    stage('TF init') {
+            steps {
+                dir('Day1') {
+                sh "terraform init"
+            }
+            }
+        }
+     stage('TF plan') {
+            steps {
+                dir('Day1') {
+                sh "terraform plan"
+            }
+        }
+     }
+    stage('TF action') {
+            steps {
+                dir('Day1') {
+                sh "terraform ${action} -auto-approve"
+            }
+        }
+    }
+   }
+    
+}
