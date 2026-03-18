@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define your working directory here
+        TF_DIR                = 'Day1' 
+    }
+
+    parameters {
+        choice(
+            name: 'action', 
+            choices: ['apply', 'destroy'], 
+            description: 'Select the Terraform action'
+        )
+    }
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/madarsh07/terraformlab.git'
+            }
+        }
+
+        stage('TF init') {
+            steps {
+                // Use the environment variable with ${env.TF_DIR}
+                dir("${env.TF_DIR}") {
+                    sh "terraform init"
+                }
+            }
+        }
+
+        stage('TF plan') {
+            steps {
+                dir("${env.TF_DIR}") {
+                    sh "terraform plan"
+                }
+            }
+        }
+
+        stage('TF action') {
+            when {
+                expression { params.action != 'plan' }
+            }
+            steps {
+                dir("${env.TF_DIR}") {
+                    sh "terraform ${params.action} -auto-approve"
+                }
+            }
+        }
+    }
+}
