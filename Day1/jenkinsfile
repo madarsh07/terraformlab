@@ -17,9 +17,9 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/madarsh07/terraformlab.git'
+                
             }
-        }
+        }git branch: 'main', url: 'https://github.com/madarsh07/terraformlab.git'
 
         stage('TF init') {
             steps {
