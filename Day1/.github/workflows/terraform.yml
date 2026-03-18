@@ -51,9 +51,9 @@ jobs:
    Step 4: Run Terraform Plan
       - name: "Terraform Plan"
         id: plan
-        run: terraform plan -input=false
+        run: terraform plan 
 
       # Step 5: Run Apply or Destroy (Only if manually triggered)
       - name: "Terraform Action"
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.action != 'plan'
-        run: terraform ${{ github.event.inputs.action }} -auto-approve -input=false
+         id: apply
+        run: terraform apply -auto-approve
